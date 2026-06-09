@@ -1,0 +1,149 @@
+.section {
+  padding: 7rem 5%;
+  background: var(--bg);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+
+.section[data-visible] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  margin-bottom: 0.75rem;
+}
+
+.desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+  width: fit-content;
+}
+
+.item:hover { color: var(--accent); }
+
+.item svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: border 0.2s var(--ease);
+  outline: none;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+}
+
+.field select {
+  appearance: none;
+  background-image: var(--select-arrow);
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  padding-right: 2rem;
+}
+
+.field select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.8rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s var(--ease);
+  justify-content: center;
+}
+
+.btn:hover { background: var(--accent-gold); }
+
+.btn svg { transition: transform 0.2s var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+
+@media (max-width: 768px) {
+  .container { grid-template-columns: 1fr; gap: 2rem; }
+  .row { grid-template-columns: 1fr; }
+  .form { padding: 1.5rem; }
+}

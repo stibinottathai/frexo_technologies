@@ -1,0 +1,127 @@
+.section {
+  padding: 7rem 5%;
+  background: var(--bg);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+
+.section[data-visible] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section[data-visible] .card {
+  animation: fade-up 0.5s var(--ease) both;
+}
+
+.section[data-visible] .card:nth-child(1) { animation-delay: 0ms; }
+.section[data-visible] .card:nth-child(2) { animation-delay: 120ms; }
+.section[data-visible] .card:nth-child(3) { animation-delay: 240ms; }
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  gap: 2rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0.5rem;
+}
+
+.sub {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+  transition: border 0.2s var(--ease), background 0.2s var(--ease);
+  white-space: nowrap;
+}
+
+.cta:hover {
+  border-color: var(--accent);
+  background: var(--accent-muted);
+}
+
+.cta svg { transition: transform 0.2s var(--ease); }
+.cta:hover svg { transform: translateX(3px); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.mockup {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 2rem;
+  opacity: 0.15;
+}
+
+.dot {
+  width: 100%;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+}
+
+.body { padding: 1.25rem; }
+
+.tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.projectTitle {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .header { flex-direction: column; align-items: flex-start; }
+}
