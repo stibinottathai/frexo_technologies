@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Syne } from "next/font/google";
+import { ToastProvider } from "@/contexts/ToastContext";
+import { ToastContainer } from "@/components/Toast";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -28,7 +30,12 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${syne.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <ToastProvider>
+          {children}
+          <ToastContainer />
+        </ToastProvider>
+      </body>
     </html>
   );
 }

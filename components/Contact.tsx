@@ -1,14 +1,41 @@
 "use client";
 
+import { useState } from "react";
 import { useInView } from "@/hooks/useInView";
+import { useToast } from "@/contexts/ToastContext";
 import styles from "./Contact.module.css";
 
 export default function Contact() {
   const { ref, isInView } = useInView();
+  const { addToast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    service: "",
+    message: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Thank you! We'll get back to you within 24 hours.");
+
+    if (!formData.name || !formData.email || !formData.service || !formData.message) {
+      addToast("Please fill in all fields", "warning");
+      return;
+    }
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      addToast("Thank you! We'll get back to you within 24 hours.", "success");
+      setFormData({ name: "", email: "", service: "", message: "" });
+    }, 1500);
   };
 
   return (
@@ -43,17 +70,33 @@ export default function Contact() {
           <div className={styles.row}>
             <div className={styles.field}>
               <label htmlFor="name">Full name</label>
-              <input type="text" id="name" required placeholder="John Doe" />
+              <input
+                type="text"
+                id="name"
+                required
+                placeholder="John Doe"
+                value={formData.name}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
             </div>
             <div className={styles.field}>
               <label htmlFor="email">Email address</label>
-              <input type="email" id="email" required placeholder="john@example.com" />
+              <input
+                type="email"
+                id="email"
+                required
+                placeholder="john@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
             </div>
           </div>
 
           <div className={styles.field}>
             <label htmlFor="service">Service interested in</label>
-            <select id="service" required>
+            <select id="service" required value={formData.service} onChange={handleChange} disabled={isLoading}>
               <option value="">Select a service...</option>
               <option value="Web Development">Web Development</option>
               <option value="Mobile App Development">Mobile App Development</option>
@@ -67,14 +110,30 @@ export default function Contact() {
 
           <div className={styles.field}>
             <label htmlFor="message">Message</label>
-            <textarea id="message" required placeholder="Tell us about your project..." />
+            <textarea
+              id="message"
+              required
+              placeholder="Tell us about your project..."
+              value={formData.message}
+              onChange={handleChange}
+              disabled={isLoading}
+            />
           </div>
 
-          <button type="submit" className={styles.btn}>
-            Send Message
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-            </svg>
+          <button type="submit" className={styles.btn} disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <span className={styles.spinner} />
+                Sending...
+              </>
+            ) : (
+              <>
+                Send Message
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                </svg>
+              </>
+            )}
           </button>
         </form>
       </div>

@@ -8,6 +8,7 @@ import Testimonials from "@/components/Testimonials";
 import CtaBanner from "@/components/CtaBanner";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { FloatingActionButton } from "@/components/FloatingActionButton";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <FloatingActionButton />
     </>
   );
 }
